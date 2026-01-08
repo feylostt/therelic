@@ -1,0 +1,25 @@
+version: 0.1.0
+addons:
+  - name: dns
+  - name: rbac
+  - name: ingress
+  - name: hostpath-storage
+  - name: registry
+
+# The extra arguments listed here are not required, as they would be set by the 'rbac' and the 'dns'
+# addons respectively. However, we set them to save time by not having to restart the Kubernetes
+# services a few times during cluster bootstrap.
+extraKubeAPIServerArgs:
+  --authorization-mode: RBAC,Node
+extraKubeletArgs:
+  --cluster-dns: 10.152.183.10
+  --cluster-domain: cluster.local
+extraCNIEnv:
+  IPv4_SUPPORT: true
+  IPv4_CLUSTER_CIDR: 10.3.0.0/16
+  IPv4_SERVICE_CIDR: 10.153.183.0/24
+  IPv6_SUPPORT: true
+  IPv6_CLUSTER_CIDR: fd02::/64
+  IPv6_SERVICE_CIDR: fd99::/108
+extraSANs:
+  - 10.153.183.1

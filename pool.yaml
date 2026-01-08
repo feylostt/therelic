@@ -1,0 +1,20 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: dualstack-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.1.201-192.168.1.210
+  - fc00:f853:0ccd:e799::/124
+
+---
+
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: dualstack-ad
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - dualstack-pool

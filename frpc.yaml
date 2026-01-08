@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frpc
+  namespace: minecraft
+  labels:
+    app: frpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frpc
+  template:
+    metadata:
+      labels:
+        app: frpc
+    spec:
+      containers:
+      - env:
+        - name: FRP_SERVER_ADDR
+          value: 34.16.14.21
+        name: frpc
+        image: feylost/frpc:latest
